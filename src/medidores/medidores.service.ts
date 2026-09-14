@@ -89,9 +89,10 @@ export class MedidoresService {
   
 
   // 5. Excluir Medidor
-  async remove(id: string): Promise<void> {
+  async remove(id: string): Promise<{ message: string }> {
     const medidor = await this.findOne(id);
     await this.medidorRepo.remove(medidor);
+    return { message: 'Medidor excluído com sucesso...'}
   }
 }
 

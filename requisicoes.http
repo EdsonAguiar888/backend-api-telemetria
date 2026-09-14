@@ -97,39 +97,49 @@ DELETE http://localhost:3000/medidores/6f8289fe-b32b-4b10-a640-0a0a20f37f84
 ############## LEITURA ################
 
 ### Listar todas as LEITURA
-GET http://localhost:3000/leitura
+GET http://localhost:3000/leituras
+
+
+### Listar consultar o consumo do mês de setembro por dia: 
+GET http://localhost:3000/medidores/0ecf26f9-f811-4007-9a3a-4d7d593425f4/consumo?nivel=dia&ano=2026&mes=9
+
+### Listar consultar o consumo do mês de setembro por ano / mes: 
+GET http://localhost:3000/medidores/0ecf26f9-f811-4007-9a3a-4d7d593425f4/consumo?nivel=mes&ano=2026
+
+### Listar consultar o consumo do mês de setembro por ano: 
+GET http://localhost:3000/medidores/0ecf26f9-f811-4007-9a3a-4d7d593425f4/consumo?nivel=ano
 
 
 ### Buscar leitura por ID
-GET http://localhost:3000/leitura/b243e500-36d5-4e69-af0b-3ee42d038dc8
+GET http://localhost:3000/leituras/827ec67f-ab9e-498a-aafa-905b9b285fdd
 
 
 ### Criar uma nov leitura
-POST http://localhost:3000/leitura/
+POST http://localhost:3000/leituras/
 Content-Type: application/json
 
 {
-   
-  "nome": "Residencial Nova Morada - Apto 201",
-  "endereco": "Rua das Alamedas, 456"
+   "dataHora": "2026-10-07T08:00:00Z",
+  "valor": 974084290.0,
+  "medidorId": "0ecf26f9-f811-4007-9a3a-4d7d593425f4" 
+  //obrigado colocar id de um medidor
 
 }
 
 ###
 
 ### Deletar uma leitura
-DELETE http://localhost:3000/leitura/70a794ee-f23f-40b1-9530-052fd8d55ed0
+DELETE http://localhost:3000/leituras/75f2c108-4c42-43a0-9af1-9cac586ec47f
 
 
 ### Atualizar leitura
-PUT http://localhost:3000/leitura/f6c6b498-5818-4b0d-89bd-215fc2548f98
+PATCH  http://localhost:3000/leituras/827ec67f-ab9e-498a-aafa-905b9b285fdd
 Content-Type: application/json
 
 {
-    "titulo": "Estudar NestJS e json",
-    "descricao": "Praticar integração com gráficos e CRUD de tarefas",
-    "prioridade": "media",
-    "status": "ABERTA"
+  "dataHora": "2026-10-07T08:00:00Z",
+  "valor": 288.0,
+  "medidorId": "0ecf26f9-f811-4007-9a3a-4d7d593425f4"
 }
 
 ###########################################################################

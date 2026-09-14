@@ -57,37 +57,15 @@ async findOne(id: string): Promise<ImovelEntity> {
   }
 
   // EXCLUIR IMÓVEL
-  async remove(id: string): Promise<void> {
+  async remove(id: string): Promise<{ message: string}> {
     // 1. Busca o imóvel para garantir existência
     const imovel = await this.findOne(id);
 
     // 2. Remove o registro do banco
     await this.imovelRepo.remove(imovel);
+    return { message: 'Imóvel excluído com sucesso... '}
   }
 
-
-
-
-
-  //   async findAll(): Promise<ImovelEntity[]> {
-//     return await this.imovelRepo.find({
-//       relations: ['medidores'],
-//     });
-//   }
-
-//   // Busca um imóvel pelo ID. Se não achar, lança o erro HTTP 404 (Not Found)
-//   async findOne(id: string): Promise<ImovelEntity> {
-//     const imovel = await this.imovelRepo.findOne({
-//       where: { id },
-//       relations: ['medidores'],
-//     });
-
-//     if (!imovel) {
-//       throw new NotFoundException(`Imóvel com ID "${id}" não foi encontrado.`);
-//     }
-
-//     return imovel;
-//   }
 }
 
 
