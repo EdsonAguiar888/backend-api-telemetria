@@ -12,17 +12,17 @@ export enum TipoMedidor {
 @Entity('medidores')
 export class MedidorEntity {
   @PrimaryGeneratedColumn('uuid')
-  id?: string;
+  id!: string;
  
   @Column()
-  identificador?: string;   // número de série do medidor
+  identificador!: string;   // número de série do medidor
  
   @Column({ type: 'enum', enum: TipoMedidor, default: TipoMedidor.AGUA })
-  tipo?: TipoMedidor;
+  tipo!: TipoMedidor;
  
   @ManyToOne(() => ImovelEntity, (imovel) => imovel.medidores)
-  imovel?: ImovelEntity;
+  imovel!: ImovelEntity;
  
   @OneToMany(() => LeituraEntity, (leitura) => leitura.medidor)
-  leituras?: LeituraEntity[];
+  leituras!: LeituraEntity[];
 }

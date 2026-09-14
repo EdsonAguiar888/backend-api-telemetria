@@ -1,0 +1,179 @@
+
+
+############## IMOVEIS ################
+
+### Listar todas as IMOVEIS
+GET http://localhost:3000/imoveis
+
+
+### Buscar IMOVEIS por ID
+GET http://localhost:3000/imoveis/150badaa-ec9b-4e32-9b8a-5a8f52ea44fe
+
+
+### Criar uma novo IMOVEL
+POST http://localhost:3000/imoveis/
+Content-Type: application/json
+
+{
+   
+  "nome": "Residencial Nova Morada - Apto 401",
+  "endereco": "Rua das Alamedas, 456"
+
+}
+
+
+
+
+### Atualizar IMOVEL
+PATCH http://localhost:3000/imoveis/70595134-afb3-47dd-a43c-6ac2d34eb78c
+Content-Type: application/json
+
+{
+    
+  "nome": "Edifício Central - Bloco A"
+
+}
+
+
+
+### Deletar uma IMOVEL
+DELETE http://localhost:3000/imoveis/70595134-afb3-47dd-a43c-6ac2d34eb78c
+
+
+
+
+
+
+
+###########################################################################
+###########################################################################
+###########################################################################
+
+
+############## MEDIDOR ################
+
+### Listar todos os MEDIDORES
+GET http://localhost:3000/medidores
+
+
+### Buscar medidor por ID
+GET http://localhost:3000/medidores/0ecf26f9-f811-4007-9a3a-4d7d593425f4
+
+
+### Criar uma novo medidor
+POST http://localhost:3000/medidores
+Content-Type: application/json
+
+{  
+  
+  "identificador": "MED-AGUA-05",
+  "tipo": "AGUA",
+  "imovelId": "46eaf04c-390d-4251-9b23-0ad9aaec92de"
+}
+
+###
+
+
+
+### Atualizar medidor
+PATCH http://localhost:3000/medidores/0ecf26f9-f811-4007-9a3a-4d7d593425f4
+Content-Type: application/json
+
+{
+  "identificador": "MED-AGUA-1001"
+}
+
+
+### Deletar um medidor
+DELETE http://localhost:3000/medidores/6f8289fe-b32b-4b10-a640-0a0a20f37f84
+
+
+
+###########################################################################
+###########################################################################
+###########################################################################
+
+
+############## LEITURA ################
+
+### Listar todas as LEITURA
+GET http://localhost:3000/leitura
+
+
+### Buscar leitura por ID
+GET http://localhost:3000/leitura/b243e500-36d5-4e69-af0b-3ee42d038dc8
+
+
+### Criar uma nov leitura
+POST http://localhost:3000/leitura/
+Content-Type: application/json
+
+{
+   
+  "nome": "Residencial Nova Morada - Apto 201",
+  "endereco": "Rua das Alamedas, 456"
+
+}
+
+###
+
+### Deletar uma leitura
+DELETE http://localhost:3000/leitura/70a794ee-f23f-40b1-9530-052fd8d55ed0
+
+
+### Atualizar leitura
+PUT http://localhost:3000/leitura/f6c6b498-5818-4b0d-89bd-215fc2548f98
+Content-Type: application/json
+
+{
+    "titulo": "Estudar NestJS e json",
+    "descricao": "Praticar integração com gráficos e CRUD de tarefas",
+    "prioridade": "media",
+    "status": "ABERTA"
+}
+
+###########################################################################
+###########################################################################
+###########################################################################
+
+############## CONSUMO ################
+
+### Listar todas as consumo
+GET http://localhost:3000/consumo
+
+
+### Buscar consumo por ID
+GET http://localhost:3000/consumo/b243e500-36d5-4e69-af0b-3ee42d038dc8
+
+
+### Criar uma novo consumo
+POST http://localhost:3000/consumo/
+Content-Type: application/json
+
+{
+   
+  "nome": "Residencial Nova Morada - Apto 201",
+  "endereco": "Rua das Alamedas, 456"
+
+}
+
+###
+
+### Deletar uma consumo
+DELETE http://localhost:3000/consumo/70a794ee-f23f-40b1-9530-052fd8d55ed0
+
+
+### Atualizar consumo
+PUT http://localhost:3000/consumo/f6c6b498-5818-4b0d-89bd-215fc2548f98
+Content-Type: application/json
+
+{
+    "titulo": "Estudar NestJS e json",
+    "descricao": "Praticar integração com gráficos e CRUD de tarefas",
+    "prioridade": "media",
+    "status": "ABERTA"
+}
+
+###########################################################################
+###########################################################################
+###########################################################################

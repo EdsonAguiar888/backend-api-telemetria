@@ -5,14 +5,14 @@ import { MedidorEntity } from '../medidores/medidor.entity';
 @Entity('imoveis')
 export class ImovelEntity {
   @PrimaryGeneratedColumn('uuid')
-  id?: string;
+  id!: string;
  
   @Column()
-  nome?: string;
+  nome!: string;
  
   @Column()
-  endereco?: string;
+  endereco!: string;
  
   @OneToMany(() => MedidorEntity, (medidor) => medidor.imovel)
-  medidores?: MedidorEntity[];
+  medidores!: MedidorEntity[];
 }
