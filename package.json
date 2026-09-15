@@ -1,7 +1,7 @@
 {
-  "name": "backend-api",
+  "name": "backend-api-telemetria",
   "version": "0.0.1",
-  "description": "",
+  "description": "Sistema de Telemetria de Consumo - Backend NestJS",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
