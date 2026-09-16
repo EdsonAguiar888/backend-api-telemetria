@@ -61,6 +61,9 @@ async findOne(id: string): Promise<ImovelEntity> {
     // 1. Busca o imóvel para garantir existência
     const imovel = await this.findOne(id);
 
+    if (!imovel) {
+    throw new NotFoundException(`Imóvel com ID ${id} não encontrado.`);
+    }
     // 2. Remove o registro do banco
     await this.imovelRepo.remove(imovel);
     return { message: 'Imóvel excluído com sucesso... '}

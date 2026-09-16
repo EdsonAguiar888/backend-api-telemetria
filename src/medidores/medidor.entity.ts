@@ -20,7 +20,13 @@ export class MedidorEntity {
   @Column({ type: 'enum', enum: TipoMedidor, default: TipoMedidor.AGUA })
   tipo!: TipoMedidor;
  
-  @ManyToOne(() => ImovelEntity, (imovel) => imovel.medidores)
+  @ManyToOne(() => ImovelEntity, (imovel) => imovel.medidores, {
+    onDelete: 'CASCADE' // <--- PERMITE EXCLUIR IMOVEL COM MEDIDORES VINCULADOS
+
+  })
+  
+
+
   imovel!: ImovelEntity;
  
   @OneToMany(() => LeituraEntity, (leitura) => leitura.medidor)
