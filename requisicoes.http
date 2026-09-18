@@ -133,12 +133,12 @@ DELETE http://localhost:3000/leituras/75f2c108-4c42-43a0-9af1-9cac586ec47f
 
 
 ### Atualizar leitura
-PATCH  http://localhost:3000/leituras/827ec67f-ab9e-498a-aafa-905b9b285fdd
+PATCH  http://localhost:3000/leituras/bbed1fdc-6cab-475e-a575-35df0dfe71c7
 Content-Type: application/json
 
 {
   "dataHora": "2026-10-07T08:00:00Z",
-  "valor": 288.0,
+  "valor": 444.0,
   "medidorId": "0ecf26f9-f811-4007-9a3a-4d7d593425f4"
 }
 
