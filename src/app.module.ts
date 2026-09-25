@@ -11,16 +11,31 @@ import { LeituraEntity } from './leituras/leitura.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',              // Como o backend está rodando na sua máquina física, aponta para localhost
-      port: 3306,                     // Mapeado do Docker
-      username: 'telemetria_user',    // Definido no docker-compose.yml
-      password: 'telemetria_pass',    // Definido no docker-compose.yml
-      database: 'telemetria_db',      // Definido no docker-compose.yml
-      entities: [ImovelEntity, MedidorEntity, LeituraEntity],
-      synchronize: true,              // Cria e sincroniza automaticamente as tabelas no MySQL
-    }),
+
+
+TypeOrmModule.forRoot({
+  type: 'mysql',
+  host: process.env.DB_HOST || 'container_mysql_telemetria',
+  port: Number(process.env.DB_PORT) || 3306,
+  username: process.env.DB_USERNAME || 'telemetria_user',
+  password: process.env.DB_PASSWORD || 'telemetria_pass',
+  database: process.env.DB_DATABASE || 'telemetria_db',
+  entities: [ImovelEntity, MedidorEntity, LeituraEntity],
+  synchronize: true,
+}),
+
+
+    // TypeOrmModule.forRoot({
+    //   type: 'mysql',
+    //   host: 'container_mysql_telemetria',              // Como o backend está rodando na sua máquina física, aponta para localhost
+    //   // host: 'localhost',              // Como o backend está rodando na sua máquina física, aponta para localhost
+    //   port: 3306,                     // Mapeado do Docker
+    //   username: 'telemetria_user',    // Definido no docker-compose.yml
+    //   password: 'telemetria_pass',    // Definido no docker-compose.yml
+    //   database: 'telemetria_db',      // Definido no docker-compose.yml
+    //   entities: [ImovelEntity, MedidorEntity, LeituraEntity],
+    //   synchronize: true,              // Cria e sincroniza automaticamente as tabelas no MySQL
+    // }),
     ImoveisModule,
     MedidoresModule,
     LeiturasModule,
