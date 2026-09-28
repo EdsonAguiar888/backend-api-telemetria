@@ -1,3 +1,5 @@
+
+
 services:
   backend:
     container_name: container_backend_telemetria
@@ -5,17 +7,20 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
-    ports:
-      - "3000:3000"
+
+    # ports:
+    #   - "3000:3000"
+
+    expose:
+      - "3000"
+
+
     environment:
-      # Aponta para o nome do contêiner do MySQL na rede compartilhada
       DB_HOST: container_mysql_telemetria
       DB_PORT: 3306
       DB_USERNAME: telemetria_user
       DB_PASSWORD: telemetria_pass
       DB_DATABASE: telemetria_db
-
-      # Mantenha estas também caso seu NestJS use nomes alternativos no TypeORM
       MYSQL_HOST: container_mysql_telemetria
       MYSQL_USER: telemetria_user
       MYSQL_PASSWORD: telemetria_pass
@@ -26,6 +31,59 @@ services:
 networks:
   rede_compartilhada:
     external: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# funcionando ok
+
+# services:
+#   backend:
+#     container_name: container_backend_telemetria
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     restart: always
+#     ports:
+#       - "3000:3000"
+
+#     expose:
+#       - "3000"
+#     environment:
+#       # Aponta para o nome do contêiner do MySQL na rede compartilhada
+#       DB_HOST: container_mysql_telemetria
+#       DB_PORT: 3306
+#       DB_USERNAME: telemetria_user
+#       DB_PASSWORD: telemetria_pass
+#       DB_DATABASE: telemetria_db
+
+#       # Mantenha estas também caso seu NestJS use nomes alternativos no TypeORM
+#       MYSQL_HOST: container_mysql_telemetria
+#       MYSQL_USER: telemetria_user
+#       MYSQL_PASSWORD: telemetria_pass
+#       MYSQL_DATABASE: telemetria_db
+#     networks:
+#       - rede_compartilhada
+
+# networks:
+#   rede_compartilhada:
+#     external: true
 
 
 
