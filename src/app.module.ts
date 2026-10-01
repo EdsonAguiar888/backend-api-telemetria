@@ -8,6 +8,9 @@ import { ConsumoModule } from './consumo/consumo.module';
 import { ImovelEntity } from './imoveis/imovel.entity';
 import { MedidorEntity } from './medidores/medidor.entity';
 import { LeituraEntity } from './leituras/leitura.entity';
+import { UsuarioEntity } from './usuarios/usuario.entity';
+import { AuthModule } from './auth/auth.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
 
 @Module({
   imports: [
@@ -20,7 +23,13 @@ TypeOrmModule.forRoot({
   username: process.env.DB_USERNAME || 'telemetria_user',
   password: process.env.DB_PASSWORD || 'telemetria_pass',
   database: process.env.DB_DATABASE || 'telemetria_db',
-  entities: [ImovelEntity, MedidorEntity, LeituraEntity],
+
+
+  entities: [ ImovelEntity,
+              MedidorEntity,
+              LeituraEntity,
+              UsuarioEntity
+            ],
   synchronize: true,
 }),
 
@@ -39,7 +48,9 @@ TypeOrmModule.forRoot({
     ImoveisModule,
     MedidoresModule,
     LeiturasModule,
-    ConsumoModule,
+    ConsumoModule,    
+    AuthModule,
+    UsuariosModule
   ],
 })
 export class AppModule {}
