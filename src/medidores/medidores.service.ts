@@ -14,12 +14,11 @@ export class MedidoresService {
     @InjectRepository(MedidorEntity)
     private readonly medidorRepo: Repository<MedidorEntity>,
     private readonly imoveisService: ImoveisService, // Injeta o serviço de imóveis para validar a existência
-  ) {}
-
-
+  ) { }
 
   // 1. Criar Medidor vinculado a um Imóvel
   async create(dto: CreateMedidorDto): Promise<MedidorEntity> {
+
     // Valida se o imóvel informado existe no MySQL (lança 404 se não achar)
     const imovel = await this.imoveisService.findOne(dto.imovelId);
 
@@ -28,7 +27,6 @@ export class MedidoresService {
       tipo: dto.tipo,
       imovel: imovel,
     });
-
     return await this.medidorRepo.save(medidor);
   }
 
@@ -36,7 +34,6 @@ export class MedidoresService {
   // 2. Listar todos os Medidores (com os imóveis associados)
   async findAll(): Promise<MedidorEntity[]> {
     return await this.medidorRepo.find({
-      
       relations: {
         imovel: true,
       }
@@ -52,8 +49,8 @@ export class MedidoresService {
       relations: {
         imovel: true,
         leituras: true
-    },
-      
+      },
+
     });
 
     if (!medidor) {
@@ -86,13 +83,13 @@ export class MedidoresService {
     return await this.medidorRepo.save(medidor);
   }
 
-  
+
 
   // 5. Excluir Medidor
   async remove(id: string): Promise<{ message: string }> {
     const medidor = await this.findOne(id);
     await this.medidorRepo.remove(medidor);
-    return { message: 'Medidor excluído com sucesso...'}
+    return { message: 'Medidor excluído com sucesso...' }
   }
 }
 

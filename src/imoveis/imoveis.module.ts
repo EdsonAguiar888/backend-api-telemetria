@@ -10,27 +10,6 @@ import { ImoveisController } from './imoveis.controller';
   providers: [ImoveisService],
   exports: [ImoveisService], // Exportamos caso o módulo de Medidores precise validar a existência do Imóvel
 })
-export class ImoveisModule {}
+export class ImoveisModule { }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// import { Module } from '@nestjs/common';
-// import { ImoveisService } from './imoveis.service';
-// import { ImoveisController } from './imoveis.controller';
-
-// @Module({
-//   providers: [ImoveisService],
-//   controllers: [ImoveisController]
-// })
-// export class ImoveisModule {}

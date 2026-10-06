@@ -1,9 +1,6 @@
 import { SetMetadata } from '@nestjs/common';
 import { UsuarioRole } from '../../usuarios/usuario.entity';
 
-
-
-
 // Quando escrevermos: 
 // @Roles(UsuarioRole.ADMIN) --> estamos dizendo: Esta rota exige ADMIN
 

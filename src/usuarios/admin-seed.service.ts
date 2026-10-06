@@ -9,7 +9,7 @@ export class AdminSeedService implements OnApplicationBootstrap {
   constructor(
     @InjectRepository(UsuarioEntity)
     private readonly usuarioRepository: Repository<UsuarioEntity>,
-  ) {}
+  ) { }
 
   async onApplicationBootstrap() {
     const adminExistente = await this.usuarioRepository.findOne({

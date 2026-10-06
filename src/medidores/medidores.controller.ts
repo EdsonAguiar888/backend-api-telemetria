@@ -38,29 +38,19 @@ export class MedidoresController {
     summary: 'Cadastrar medidor',
     description: 'Cadastra um novo medidor. Requer autenticação e role ADMIN.',
   })
-
   @ApiBody({
-  type: CreateMedidorDto,
-  examples: {
-    exemplo: {
-      summary: 'Exemplo de cadastro de medidor',
-      value: {
-        identificador: 'MED-AGUA-0005',
-        tipo: 'AGUA',
-        imovelId: '10000000-0000-0000-0000-000000000001',
+    type: CreateMedidorDto,
+    examples: {
+      exemplo: {
+        summary: 'Exemplo de cadastro de medidor',
+        value: {
+          identificador: 'MED-AGUA-0005',
+          tipo: 'AGUA',
+          imovelId: '10000000-0000-0000-0000-000000000001',
+        },
       },
     },
-  },
-})
-  // @ApiBody({
-  //   schema: {
-  //     example: {
-  //       identificador: 'MED-AGUA-0005',
-  //       tipo: 'AGUA',
-  //       imovelId: '10000000-0000-0000-0000-000000000001',
-  //     },
-  //   },
-  // })
+  })
   @ApiResponse({
     status: 201,
     description: 'Medidor cadastrado com sucesso.',
@@ -71,6 +61,7 @@ export class MedidoresController {
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UsuarioRole.ADMIN)
+
   create(@Body() dto: CreateMedidorDto) {
     return this.medidoresService.create(dto);
   }
@@ -97,6 +88,7 @@ export class MedidoresController {
     UsuarioRole.ADMIN,
     UsuarioRole.USUARIO,
   )
+
   findAll() {
     return this.medidoresService.findAll();
   }
@@ -105,15 +97,12 @@ export class MedidoresController {
   // BUSCAR MEDIDORES POR ID
   // ADMIN + USUARIO
   // ==========================================
-
   @Get(':id')
-
   @ApiBearerAuth('bearer')
   @ApiOperation({
     summary: 'Buscar medidor por ID',
     description: 'Retorna um medidor específico pelo ID. Requer autenticação.',
   })
-
   @ApiResponse({
     status: 200,
     description: 'Medidor encontrado com sucesso.',
@@ -127,6 +116,7 @@ export class MedidoresController {
     UsuarioRole.ADMIN,
     UsuarioRole.USUARIO,
   )
+
   findOne(@Param('id') id: string) {
     return this.medidoresService.findOne(id);
   }
@@ -139,28 +129,23 @@ export class MedidoresController {
   // ==========================================
   @Patch(':id')
   @ApiBearerAuth('bearer')
-
-
-
   @ApiBody({
-  type: UpdateMedidorDto,
-  examples: {
-    exemplo: {
-      summary: 'Exemplo de atualização de medidor',
-      value: {
-        identificador: 'MED-AGUA-ATUALIZADO',
-        tipo: 'AGUA',
-        imovelId: '10000000-0000-0000-0000-000000000001',
+    type: UpdateMedidorDto,
+    examples: {
+      exemplo: {
+        summary: 'Exemplo de atualização de medidor',
+        value: {
+          identificador: 'MED-AGUA-ATUALIZADO',
+          tipo: 'AGUA',
+          imovelId: '10000000-0000-0000-0000-000000000001',
+        },
       },
     },
-  },
-})
-
+  })
   @ApiOperation({
     summary: 'Atualizar medidor',
     description: 'Atualiza os dados de um medidor. Requer autenticação e role ADMIN.',
   })
- 
   @ApiResponse({
     status: 200,
     description: 'Medidor atualizado com sucesso.',
@@ -173,7 +158,6 @@ export class MedidoresController {
     status: 404,
     description: 'Medidor não encontrado.',
   })
-
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UsuarioRole.ADMIN)
 
@@ -184,11 +168,11 @@ export class MedidoresController {
     return this.medidoresService.update(id, dto);
   }
 
-
-
-
+  // ==========================================
+  // DELETAR MEDIDOR
+  // ADMIN
+  // ==========================================
   @Delete(':id')
-
   @ApiBearerAuth('bearer')
   @ApiOperation({
     summary: 'Excluir medidor',
@@ -208,131 +192,9 @@ export class MedidoresController {
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UsuarioRole.ADMIN)
+
   remove(@Param('id') id: string) {
     return this.medidoresService.remove(id);
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
-// import { MedidoresService } from './medidores.service';
-// import { CreateMedidorDto } from './dto/create-medidor.dto';
-// import { UpdateMedidorDto } from './dto/update-medidor.dto';
-
-// @Controller('medidores')
-// export class MedidoresController {
-//   constructor(private readonly medidoresService: MedidoresService) {}
-
-//   @Post()
-//   create(@Body() dto: CreateMedidorDto) {
-//     return this.medidoresService.create(dto);
-//   }
-
-//   @Get()
-//   findAll() {
-//     return this.medidoresService.findAll();
-//   }
-
-//   @Get(':id')
-//   findOne(@Param('id') id: string) {
-//     return this.medidoresService.findOne(id);
-//   }
-
-//   @Patch(':id')
-//   update(@Param('id') id: string, @Body() dto: UpdateMedidorDto) {
-//     return this.medidoresService.update(id, dto);
-//   }
-
-//   @Delete(':id')
-//   remove(@Param('id') id: string) {
-//     return this.medidoresService.remove(id);
-//   }
-// }
-
-
-
-
-
-
-
-
-
-// // import { Controller, Get, Post, Body, Param } from '@nestjs/common';
-// // import { MedidoresService } from './medidores.service';
-// // import { CreateMedidorDto } from './dto/create-medidor.dto';
-
-// // @Controller('medidores') // Define a rota base: http://localhost:3000/medidores
-// // export class MedidoresController {
-// //   constructor(private readonly medidoresService: MedidoresService) {}
-
-// //   @Post() // POST /medidores
-// //   create(@Body() dto: CreateMedidorDto) {
-// //     return this.medidoresService.create(dto);
-// //   }
-
-// //   @Get() // GET /medidores
-// //   findAll() {
-// //     return this.medidoresService.findAll();
-// //   }
-
-// //   @Get(':id') // GET /medidores/:id
-// //   findOne(@Param('id') id: string) {
-// //     return this.medidoresService.findOne(id);
-// //   }
-// // }
-
-
-
-
-
-
-
-
-
-
-
-
-// // // import { Controller } from '@nestjs/common';
-
-// // // @Controller('medidores')
-// // // export class MedidoresController {}

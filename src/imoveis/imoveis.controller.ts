@@ -22,13 +22,14 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { UsuarioRole } from '../usuarios/usuario.entity';
 
 import {
-  ApiBearerAuth, ApiBody, ApiOperation, ApiResponse,} from '@nestjs/swagger';
+  ApiBearerAuth, ApiBody, ApiOperation, ApiResponse,
+} from '@nestjs/swagger';
 
 @Controller('imoveis')
 export class ImoveisController {
   constructor(
     private readonly imoveisService: ImoveisService,
-  ) {}
+  ) { }
 
   // ==========================================
   // CRIAR IMÓVEL
@@ -39,45 +40,33 @@ export class ImoveisController {
   @Post()
   @ApiBearerAuth()
   @ApiOperation({
-  summary: 'Cadastrar imóvel',
-  description: 'Cadastra um novo imóvel. Requer autenticação e role ADMIN.',
-})
+    summary: 'Cadastrar imóvel',
+    description: 'Cadastra um novo imóvel. Requer autenticação e role ADMIN.',
+  })
 
 
 
-@ApiBody({
-  type: CreateImovelDto,
-  examples: {
-    exemplo: {
-      summary: 'Exemplo de cadastro de imóvel',
-      value: {
-        nome: 'Residencial Exemplo',
-        endereco: 'Av. Boa Viagem, 500 - Recife/PE',
+  @ApiBody({
+    type: CreateImovelDto,
+    examples: {
+      exemplo: {
+        summary: 'Exemplo de cadastro de imóvel',
+        value: {
+          nome: 'Residencial Exemplo',
+          endereco: 'Av. Boa Viagem, 500 - Recife/PE',
+        },
       },
     },
-  },
-})
-// @ApiBody({
-//   schema: {
-//     example: {
-//       nome: 'Residencial Exemplo',
-//       endereco: 'Av. Boa Viagem, 500 - Recife/PE',
-//     },
-//   },
-// })
+  })
 
-
-
-
-
-@ApiResponse({
-  status: 201,
-  description: 'Imóvel cadastrado com sucesso.',
-})
-@ApiResponse({
-  status: 403,
-  description: ' Acesso permitido somente para ADMIN.',
-})
+  @ApiResponse({
+    status: 201,
+    description: 'Imóvel cadastrado com sucesso.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: ' Acesso permitido somente para ADMIN.',
+  })
   @Roles(UsuarioRole.ADMIN)
   create(@Body() dto: CreateImovelDto) {
     return this.imoveisService.create(dto);
@@ -107,7 +96,7 @@ export class ImoveisController {
     return this.imoveisService.findAll();
   }
 
-  
+
 
   // ==========================================
   // BUSCAR IMÓVEL POR ID
@@ -152,27 +141,18 @@ export class ImoveisController {
   })
 
 
-@ApiBody({
-  type: UpdateImovelDto,
-  examples: {
-    exemplo: {
-      summary: 'Exemplo de atualização de imóvel',
-      value: {
-        nome: 'Residencial Exemplo Atualizado',
-        endereco: 'Rua Exemplo, 100 - Recife/PE',
+  @ApiBody({
+    type: UpdateImovelDto,
+    examples: {
+      exemplo: {
+        summary: 'Exemplo de atualização de imóvel',
+        value: {
+          nome: 'Residencial Exemplo Atualizado',
+          endereco: 'Rua Exemplo, 100 - Recife/PE',
+        },
       },
     },
-  },
-})
-//   @ApiBody({
-//   schema: {
-//     example: {
-//       nome: 'Residencial Exemplo Atualizado',
-//       endereco: 'Rua Exemplo, 100 - Recife/PE',
-//     },
-//   },
-// })
-
+  })
 
 
   @ApiResponse({
@@ -214,60 +194,3 @@ export class ImoveisController {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { Controller, Get, Post, Body, Param, Put, Patch, Delete } from '@nestjs/common';
-// import { ImoveisService } from './imoveis.service';
-// import { CreateImovelDto } from './dto/create-imovel.dto';
-// import { UpdateImovelDto } from './dto/update-imovel.dto';
-
-// @Controller('imoveis') // Define a rota base: http://localhost:3000/imoveis
-// export class ImoveisController {
-//   constructor(private readonly imoveisService: ImoveisService) {}
-
-//   @Post() // POST /imoveis
-//   create(@Body() dto: CreateImovelDto) {
-//     return this.imoveisService.create(dto);
-//   }
-
-//   @Get() // GET /imoveis
-//   findAll() {
-//     return this.imoveisService.findAll();
-//   }
-
-//   @Get(':id') // GET /imoveis/:id
-//   findOne(@Param('id') id: string) {
-//     return this.imoveisService.findOne(id);
-//   }
-
-
-// // ROTA DE ATUALIZAÇÃO PARCIAL
-//   @Patch(':id') // PATCH /imoveis/:id
-//   update(@Param('id') id: string, @Body() dto: UpdateImovelDto) {
-//     return this.imoveisService.update(id, dto);
-//   }
-
- 
-//   // ROTA DE REMOÇÃO
-//   @Delete(':id') // DELETE /imoveis/:id
-//   remove(@Param('id') id: string) {
-//     return this.imoveisService.remove(id);
-//   }
-// }

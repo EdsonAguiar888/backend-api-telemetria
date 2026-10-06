@@ -5,13 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsuarioEntity } from '../usuarios/usuario.entity';
-import { UsuariosModule } from 'src/usuarios/usuarios.module';
+import { UsuariosModule } from '../usuarios/usuarios.module';
+// import { UsuariosModule } from 'src/usuarios/usuarios.module';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { RolesGuard } from './guards/roles.guard';
 
 @Module({
   imports: [
-    
+
     TypeOrmModule.forFeature([UsuarioEntity]),
     UsuariosModule,
     PassportModule,
@@ -24,12 +25,12 @@ import { RolesGuard } from './guards/roles.guard';
 
 
   providers: [AuthService,
-              JwtStrategy,
-              RolesGuard,
+    JwtStrategy,
+    RolesGuard,
   ],
 
 
-  exports: [AuthService, 
-            JwtModule],
+  exports: [AuthService,
+    JwtModule],
 })
-export class AuthModule {}
+export class AuthModule { }

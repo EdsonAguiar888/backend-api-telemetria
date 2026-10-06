@@ -28,7 +28,7 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-  ) {}
+  ) { }
 
 
 
@@ -36,17 +36,17 @@ export class AuthController {
 
 
   @ApiOperation({
-  summary: 'Realizar login',
-  description: 'Autentica o usuário e retorna um JWT para acesso aos endpoints protegidos.',
-})
-@ApiResponse({
-  status: 200,
-  description: 'Login realizado com sucesso.',
-})
-@ApiResponse({
-  status: 401,
-  description: 'Credenciais inválidas.',
-})
+    summary: 'Realizar login',
+    description: 'Autentica o usuário e retorna um JWT para acesso aos endpoints protegidos.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Login realizado com sucesso.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Credenciais inválidas.',
+  })
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
@@ -61,62 +61,39 @@ export class AuthController {
     return request.user;
   }
 
-// ==============================================================
+  // ==============================================================
 
-@UseGuards(JwtAuthGuard, RolesGuard)
-@ApiBearerAuth()
-@ApiOperation({
-  summary: 'Acesso exclusivo para ADMIN',
-  description: 'Retorna os dados do usuário autenticado. Requer JWT e role ADMIN.',
-})
-@Roles(UsuarioRole.ADMIN)
-@Get('admin')
-adminOnly(@Req() request: any) {
-  return {
-    mensagem: 'Acesso permitido para ADMIN',
-    usuario: request.user,
-  };
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Acesso exclusivo para ADMIN',
+    description: 'Retorna os dados do usuário autenticado. Requer JWT e role ADMIN.',
+  })
+  @Roles(UsuarioRole.ADMIN)
+  @Get('admin')
+  adminOnly(@Req() request: any) {
+    return {
+      mensagem: 'Acesso permitido para ADMIN',
+      usuario: request.user,
+    };
+  }
+
+
+
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Acesso exclusivo para USUARIO',
+    description: 'Retorna os dados do usuário autenticado. Requer JWT e role USUARIO.',
+  })
+  @Roles(UsuarioRole.USUARIO)
+  @Get('usuario')
+  usuarioOnly(@Req() request: any) {
+    return {
+      mensagem: 'Acesso permitido para USUARIO',
+      usuario: request.user,
+    };
+  }
 }
 
-
-
-
-@UseGuards(JwtAuthGuard, RolesGuard)
-@ApiBearerAuth()
-@ApiOperation({
-  summary: 'Acesso exclusivo para USUARIO',
-  description: 'Retorna os dados do usuário autenticado. Requer JWT e role USUARIO.',
-})
-@Roles(UsuarioRole.USUARIO)
-@Get('usuario')
-usuarioOnly(@Req() request: any) {
-  return {
-    mensagem: 'Acesso permitido para USUARIO',
-    usuario: request.user,
-  };
-}
-}
-
-
-
-
-
-
-
-
-
-
-// import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-// import { AuthService } from './auth.service';
-// import { LoginDto } from './dto/login.dto';
-
-// @Controller('auth')
-// export class AuthController {
-//   constructor(private readonly authService: AuthService) {}
-
-//   @HttpCode(HttpStatus.OK)
-//   @Post('login')
-//   login(@Body() loginDto: LoginDto) {
-//     return this.authService.login(loginDto);
-//   }
-// }

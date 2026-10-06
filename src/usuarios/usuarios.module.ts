@@ -9,7 +9,7 @@ import { UsuarioSeedService } from './usuario-seed.service';
 
 
   providers: [AdminSeedService,
-              UsuarioSeedService,
+    UsuarioSeedService,
   ],
 
 
@@ -18,4 +18,4 @@ import { UsuarioSeedService } from './usuario-seed.service';
 
   exports: [TypeOrmModule.forFeature([UsuarioEntity])], // <-- EXPORTA O REPOSITÓRIO
 })
-export class UsuariosModule {}
+export class UsuariosModule { }

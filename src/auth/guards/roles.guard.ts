@@ -11,7 +11,7 @@ import { ROLES_KEY } from '../decorators/roles.decorator';
 export class RolesGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-  ) {}
+  ) { }
 
   canActivate(context: ExecutionContext): boolean {
     const roles = this.reflector.getAllAndOverride<UsuarioRole[]>(
@@ -30,12 +30,12 @@ export class RolesGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
 
     const usuario = request.user;
-    
+
     if (!usuario) {
       return false;
     }
-   
-    
+
+
     return roles.includes(usuario.role);
   }
 }

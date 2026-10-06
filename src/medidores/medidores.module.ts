@@ -16,7 +16,7 @@ import { ImoveisModule } from '../imoveis/imoveis.module';
   providers: [MedidoresService],
   exports: [MedidoresService],
 })
-export class MedidoresModule {}
+export class MedidoresModule { }
 
 
 

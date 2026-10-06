@@ -28,8 +28,6 @@ export class LeiturasController {
   ) { }
 
 
-
-
   // ==========================================
   // LISTAR CONSUMO
   // ADMIN 
@@ -41,35 +39,19 @@ export class LeiturasController {
     summary: 'Cadastrar leitura',
     description: 'Cadastra uma nova leitura. Requer autenticação e role ADMIN.',
   })
-
-
-
-
   @ApiBody({
-  type: CreateLeituraDto,
-  examples: {
-    exemplo: {
-      summary: 'Exemplo de cadastro de leitura',
-      value: {
-        dataHora: '2026-10-05T15:00:00.000Z',
-        valor: 600,
-        medidorId: '20000000-0000-0000-0000-000000000001',
+    type: CreateLeituraDto,
+    examples: {
+      exemplo: {
+        summary: 'Exemplo de cadastro de leitura',
+        value: {
+          dataHora: '2026-10-05T15:00:00.000Z',
+          valor: 600,
+          medidorId: '20000000-0000-0000-0000-000000000001',
+        },
       },
     },
-  },
-})
-  // @ApiBody({
-  //   schema: {
-  //     example: {
-  //       "dataHora": "2026-10-07T08:00:00Z",
-  //       "valor": 1234.0,
-  //       "medidorId": "0ecf26f9-f811-4007-9a3a-4d7d593425f4"
-  //     },
-  //   },
-  // })
-
-
-
+  })
   @ApiResponse({
     status: 201,
     description: 'Leitura cadastrada com sucesso.',
@@ -96,7 +78,6 @@ export class LeiturasController {
     summary: 'Listar leituras',
     description: 'Retorna todas as leituras cadastradas. Requer autenticação.',
   })
-
   @ApiResponse({
     status: 200,
     description: 'Lista de leituras retornada com sucesso.',
@@ -109,6 +90,7 @@ export class LeiturasController {
   findAll() {
     return this.leiturasService.findAll();
   }
+
 
   // ==========================================
   // LISTAR CONSUMO POR ID
@@ -139,8 +121,7 @@ export class LeiturasController {
   }
 
 
-
-   // ==========================================
+  // ==========================================
   // ATUALIZAR CONSUMO
   // ADMIN 
   // ==========================================
@@ -151,37 +132,6 @@ export class LeiturasController {
     summary: 'Atualizar leitura',
     description: 'Atualiza os dados de uma leitura. Requer autenticação e role ADMIN.',
   })
-
-
-
-
-
-  @ApiBody({
-  type: UpdateLeituraDto,
-  examples: {
-    exemplo: {
-      summary: 'Exemplo de atualização de leitura',
-      value: {
-        dataHora: '2026-10-05T16:00:00.000Z',
-        valor: 650,
-        medidorId: '20000000-0000-0000-0000-000000000001',
-      },
-    },
-  },
-})
-  // @ApiBody({
-  //   schema: {
-  //     example: {
-  //       "dataHora": "2026-10-07T08:00:00Z",
-  //       "valor": 444.0,
-  //       "medidorId": "0ecf26f9-f811-4007-9a3a-4d7d593425f4"
-  //     },
-  //   },
-  // })
-
-
-
-
   @ApiResponse({
     status: 200,
     description: 'Leitura atualizada com sucesso.',
@@ -203,7 +153,8 @@ export class LeiturasController {
     return this.leiturasService.update(id, dto);
   }
 
-   // ==========================================
+
+  // ==========================================
   // DELETAR CONSUMO
   // ADMIN
   // ==========================================
@@ -232,7 +183,3 @@ export class LeiturasController {
     return this.leiturasService.remove(id);
   }
 }
-
-
-
-

@@ -10,7 +10,7 @@ export class UsuarioSeedService implements OnApplicationBootstrap {
   constructor(
     @InjectRepository(UsuarioEntity)
     private readonly usuarioRepository: Repository<UsuarioEntity>,
-  ) {}
+  ) { }
 
   async onApplicationBootstrap() {
     const usuarioExistente = await this.usuarioRepository.findOne({

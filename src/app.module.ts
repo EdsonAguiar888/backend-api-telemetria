@@ -16,22 +16,22 @@ import { UsuariosModule } from './usuarios/usuarios.module';
   imports: [
 
 
-TypeOrmModule.forRoot({
-  type: 'mysql',
-  host: process.env.DB_HOST || 'container_mysql_telemetria',
-  port: Number(process.env.DB_PORT) || 3306,
-  username: process.env.DB_USERNAME || 'telemetria_user',
-  password: process.env.DB_PASSWORD || 'telemetria_pass',
-  database: process.env.DB_DATABASE || 'telemetria_db',
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.DB_HOST || 'container_mysql_telemetria',
+      port: Number(process.env.DB_PORT) || 3306,
+      username: process.env.DB_USERNAME || 'telemetria_user',
+      password: process.env.DB_PASSWORD || 'telemetria_pass',
+      database: process.env.DB_DATABASE || 'telemetria_db',
 
 
-  entities: [ ImovelEntity,
-              MedidorEntity,
-              LeituraEntity,
-              UsuarioEntity
-            ],
-  synchronize: true,
-}),
+      entities: [ImovelEntity,
+        MedidorEntity,
+        LeituraEntity,
+        UsuarioEntity
+      ],
+      synchronize: true,
+    }),
 
 
     // TypeOrmModule.forRoot({
@@ -48,25 +48,13 @@ TypeOrmModule.forRoot({
     ImoveisModule,
     MedidoresModule,
     LeiturasModule,
-    ConsumoModule,    
+    ConsumoModule,
     AuthModule,
     UsuariosModule
   ],
 })
-export class AppModule {}
+export class AppModule { }
 
 
-// import { Module } from '@nestjs/common';
-// import { AppController } from './app.controller';
-// import { AppService } from './app.service';
-// import { ImoveisModule } from './imoveis/imoveis.module';
-// import { MedidoresModule } from './medidores/medidores.module';
-// import { LeiturasModule } from './leituras/leituras.module';
-// import { ConsumoModule } from './consumo/consumo.module';
 
-// @Module({
-//   imports: [ImoveisModule, MedidoresModule, LeiturasModule, ConsumoModule],
-//   controllers: [AppController],
-//   providers: [AppService],
-// })
-// export class AppModule {}
+

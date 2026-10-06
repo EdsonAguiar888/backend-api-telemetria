@@ -16,7 +16,3 @@ export class LoginDto {
   senha!: string;
 }
 
-// export class LoginDto {
-//   email!: string;
-//   senha!: string;
-// }
