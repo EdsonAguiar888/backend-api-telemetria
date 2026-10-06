@@ -21,6 +21,9 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { UsuarioRole } from '../usuarios/usuario.entity';
 
+import {
+  ApiBearerAuth, ApiBody, ApiOperation, ApiResponse,} from '@nestjs/swagger';
+
 @Controller('imoveis')
 export class ImoveisController {
   constructor(
@@ -33,8 +36,49 @@ export class ImoveisController {
   // ==========================================
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UsuarioRole.ADMIN)
   @Post()
+  @ApiBearerAuth()
+  @ApiOperation({
+  summary: 'Cadastrar imóvel',
+  description: 'Cadastra um novo imóvel. Requer autenticação e role ADMIN.',
+})
+
+
+
+@ApiBody({
+  type: CreateImovelDto,
+  examples: {
+    exemplo: {
+      summary: 'Exemplo de cadastro de imóvel',
+      value: {
+        nome: 'Residencial Exemplo',
+        endereco: 'Av. Boa Viagem, 500 - Recife/PE',
+      },
+    },
+  },
+})
+// @ApiBody({
+//   schema: {
+//     example: {
+//       nome: 'Residencial Exemplo',
+//       endereco: 'Av. Boa Viagem, 500 - Recife/PE',
+//     },
+//   },
+// })
+
+
+
+
+
+@ApiResponse({
+  status: 201,
+  description: 'Imóvel cadastrado com sucesso.',
+})
+@ApiResponse({
+  status: 403,
+  description: ' Acesso permitido somente para ADMIN.',
+})
+  @Roles(UsuarioRole.ADMIN)
   create(@Body() dto: CreateImovelDto) {
     return this.imoveisService.create(dto);
   }
@@ -42,41 +86,108 @@ export class ImoveisController {
   // ==========================================
   // LISTAR IMÓVEIS
   // ADMIN + USUARIO
-  // ==========================================
-
+  // ==========================================  
+  @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Listar imóveis',
+    description: 'Retorna todos os imóveis cadastrados. Requer autenticação.',
+  })
+
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de imóveis retornada com sucesso.',
+  })
   @Roles(
     UsuarioRole.ADMIN,
     UsuarioRole.USUARIO,
   )
-  @Get()
   findAll() {
     return this.imoveisService.findAll();
   }
+
+  
 
   // ==========================================
   // BUSCAR IMÓVEL POR ID
   // ADMIN + USUARIO
   // ==========================================
-
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(
     UsuarioRole.ADMIN,
     UsuarioRole.USUARIO,
   )
   @Get(':id')
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Buscar imóvel por ID',
+    description: 'Retorna um imóvel específico pelo ID. Requer autenticação.',
+  })
+
+  @ApiResponse({
+    status: 200,
+    description: 'Imóvel encontrado com sucesso.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Imóvel não encontrado.',
+  })
   findOne(@Param('id') id: string) {
     return this.imoveisService.findOne(id);
   }
+
+
 
   // ==========================================
   // ATUALIZAR IMÓVEL
   // ADMIN
   // ==========================================
-
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UsuarioRole.ADMIN)
   @Patch(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth('bearer')
+  @ApiOperation({
+    summary: 'Atualizar imóvel',
+    description: 'Atualiza os dados de um imóvel. Requer autenticação e role ADMIN.',
+  })
+
+
+@ApiBody({
+  type: UpdateImovelDto,
+  examples: {
+    exemplo: {
+      summary: 'Exemplo de atualização de imóvel',
+      value: {
+        nome: 'Residencial Exemplo Atualizado',
+        endereco: 'Rua Exemplo, 100 - Recife/PE',
+      },
+    },
+  },
+})
+//   @ApiBody({
+//   schema: {
+//     example: {
+//       nome: 'Residencial Exemplo Atualizado',
+//       endereco: 'Rua Exemplo, 100 - Recife/PE',
+//     },
+//   },
+// })
+
+
+
+  @ApiResponse({
+    status: 200,
+    description: 'Imóvel atualizado com sucesso.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Acesso permitido somente para ADMIN.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Imóvel não encontrado.',
+  })
+  @Roles(UsuarioRole.ADMIN)
   update(
     @Param('id') id: string,
     @Body() dto: UpdateImovelDto,
@@ -89,9 +200,14 @@ export class ImoveisController {
   // ADMIN
   // ==========================================
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UsuarioRole.ADMIN)
   @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Atualizar imóvel',
+    description: 'Atualiza os dados de um imóvel. Requer autenticação e role ADMIN.',
+  })
+  @Roles(UsuarioRole.ADMIN)
   remove(@Param('id') id: string) {
     return this.imoveisService.remove(id);
   }

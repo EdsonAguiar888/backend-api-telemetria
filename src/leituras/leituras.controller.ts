@@ -8,7 +8,7 @@ import {
   Param,
   Patch,
   Delete,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
 
 import { LeiturasService } from './leituras.service';
@@ -19,43 +19,183 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { UsuarioRole } from '../usuarios/usuario.entity';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('leituras')
 export class LeiturasController {
   constructor(
     private readonly leiturasService: LeiturasService,
-  ) {}
+  ) { }
 
+
+
+
+  // ==========================================
+  // LISTAR CONSUMO
+  // ADMIN 
+  // ==========================================
+  @Post()
+
+  @ApiBearerAuth('bearer')
+  @ApiOperation({
+    summary: 'Cadastrar leitura',
+    description: 'Cadastra uma nova leitura. Requer autenticação e role ADMIN.',
+  })
+
+
+
+
+  @ApiBody({
+  type: CreateLeituraDto,
+  examples: {
+    exemplo: {
+      summary: 'Exemplo de cadastro de leitura',
+      value: {
+        dataHora: '2026-10-05T15:00:00.000Z',
+        valor: 600,
+        medidorId: '20000000-0000-0000-0000-000000000001',
+      },
+    },
+  },
+})
+  // @ApiBody({
+  //   schema: {
+  //     example: {
+  //       "dataHora": "2026-10-07T08:00:00Z",
+  //       "valor": 1234.0,
+  //       "medidorId": "0ecf26f9-f811-4007-9a3a-4d7d593425f4"
+  //     },
+  //   },
+  // })
+
+
+
+  @ApiResponse({
+    status: 201,
+    description: 'Leitura cadastrada com sucesso.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Acesso permitido somente para ADMIN.',
+  })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UsuarioRole.ADMIN)
-  @Post()
   create(@Body() dto: CreateLeituraDto) {
     return this.leiturasService.create(dto);
   }
 
+
+
+  // ==========================================
+  // LISTAR TODOS CONSUMOS
+  // ADMIN + USUARIO
+  // ==========================================
+  @Get()
+  @ApiBearerAuth('bearer')
+  @ApiOperation({
+    summary: 'Listar leituras',
+    description: 'Retorna todas as leituras cadastradas. Requer autenticação.',
+  })
+
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de leituras retornada com sucesso.',
+  })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(
     UsuarioRole.ADMIN,
     UsuarioRole.USUARIO,
   )
-  @Get()
   findAll() {
     return this.leiturasService.findAll();
   }
 
+  // ==========================================
+  // LISTAR CONSUMO POR ID
+  // ADMIN + USUARIO
+  // ==========================================
+  @Get(':id')
+
+  @ApiBearerAuth('bearer')
+  @ApiOperation({
+    summary: 'Buscar leitura por ID',
+    description: 'Retorna uma leitura específica pelo ID. Requer autenticação.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Leitura encontrada com sucesso.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Leitura não encontrada.',
+  })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(
     UsuarioRole.ADMIN,
     UsuarioRole.USUARIO,
   )
-  @Get(':id')
   findOne(@Param('id') id: string) {
     return this.leiturasService.findOne(id);
   }
 
+
+
+   // ==========================================
+  // ATUALIZAR CONSUMO
+  // ADMIN 
+  // ==========================================
+  @Patch(':id')
+
+  @ApiBearerAuth('bearer')
+  @ApiOperation({
+    summary: 'Atualizar leitura',
+    description: 'Atualiza os dados de uma leitura. Requer autenticação e role ADMIN.',
+  })
+
+
+
+
+
+  @ApiBody({
+  type: UpdateLeituraDto,
+  examples: {
+    exemplo: {
+      summary: 'Exemplo de atualização de leitura',
+      value: {
+        dataHora: '2026-10-05T16:00:00.000Z',
+        valor: 650,
+        medidorId: '20000000-0000-0000-0000-000000000001',
+      },
+    },
+  },
+})
+  // @ApiBody({
+  //   schema: {
+  //     example: {
+  //       "dataHora": "2026-10-07T08:00:00Z",
+  //       "valor": 444.0,
+  //       "medidorId": "0ecf26f9-f811-4007-9a3a-4d7d593425f4"
+  //     },
+  //   },
+  // })
+
+
+
+
+  @ApiResponse({
+    status: 200,
+    description: 'Leitura atualizada com sucesso.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Acesso permitido somente para ADMIN.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Leitura não encontrada.',
+  })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UsuarioRole.ADMIN)
-  @Patch(':id')
   update(
     @Param('id') id: string,
     @Body() dto: UpdateLeituraDto,
@@ -63,9 +203,31 @@ export class LeiturasController {
     return this.leiturasService.update(id, dto);
   }
 
+   // ==========================================
+  // DELETAR CONSUMO
+  // ADMIN
+  // ==========================================
+  @Delete(':id')
+
+  @ApiBearerAuth('bearer')
+  @ApiOperation({
+    summary: 'Excluir leitura',
+    description: 'Exclui uma leitura pelo ID. Requer autenticação e role ADMIN.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Leitura excluída com sucesso.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Acesso permitido somente para ADMIN.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Leitura não encontrada.',
+  })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UsuarioRole.ADMIN)
-  @Delete(':id')
   remove(@Param('id') id: string) {
     return this.leiturasService.remove(id);
   }
@@ -74,127 +236,3 @@ export class LeiturasController {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
-// import { LeiturasService } from './leituras.service';
-// import { CreateLeituraDto } from './dto/create-leitura.dto';
-// import { UpdateLeituraDto } from './dto/update-leitura.dto';
-
-// @Controller('leituras')
-// export class LeiturasController {
-//   constructor(private readonly leiturasService: LeiturasService) {}
-
-//   @Post()
-//   create(@Body() dto: CreateLeituraDto) {
-//     return this.leiturasService.create(dto);
-//   }
-
-//   @Get()
-//   findAll() {
-//     return this.leiturasService.findAll();
-//   }
-
-//   @Get(':id')
-//   findOne(@Param('id') id: string) {
-//     return this.leiturasService.findOne(id);
-//   }
-
-//   @Patch(':id')
-//   update(@Param('id') id: string, @Body() dto: UpdateLeituraDto) {
-//     return this.leiturasService.update(id, dto);
-//   }
-
-//   @Delete(':id')
-//   remove(@Param('id') id: string) {
-//     return this.leiturasService.remove(id);
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // import { Controller, Get, Post, Body } from '@nestjs/common';
-// // import { LeiturasService } from './leituras.service';
-// // import { CreateLeituraDto } from './dto/create-leitura.dto';
-
-// // @Controller('leituras') // Define a rota base: http://localhost:3000/leituras
-// // export class LeiturasController {
-// //   constructor(private readonly leiturasService: LeiturasService) {}
-
-// //   @Post() // POST /leituras
-// //   create(@Body() dto: CreateLeituraDto) {
-// //     return this.leiturasService.create(dto);
-// //   }
-
-// //   @Get() // GET /leituras
-// //   findAll() {
-// //     return this.leiturasService.findAll();
-// //   }
-// // }
-
-
-
-
-
-
-
-
-
-
-// // // import { Controller } from '@nestjs/common';
-
-// // // @Controller('leituras')
-// // // export class LeiturasController {}

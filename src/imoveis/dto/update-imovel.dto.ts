@@ -1,4 +1,5 @@
-import { PartialType } from '@nestjs/mapped-types';
+// import { PartialType } from '@nestjs/mapped-types';
+import { PartialType } from '@nestjs/swagger';
 import { CreateImovelDto } from './create-imovel.dto';
 
 // O PartialType faz com que todos os campos de CreateImovelDto (nome, endereco)
