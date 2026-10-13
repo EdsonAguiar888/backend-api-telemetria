@@ -30,13 +30,7 @@ export class ConsumoService {
         consumo: Number(atual.valor) - Number(leiturasValidas[i].valor),
         })); 
 
-    // const consumos = leituras.slice(1).map((atual, i) => ({
-    //   dataHora: atual.dataHora,
-    //   consumo: Number(atual.valor) - Number(leituras[i].valor),
-    // }));
-
-
- 
+   
     if (nivel === 'ano') {
       return this.agrupar(consumos, (c) => c.dataHora.getFullYear());
     }

@@ -11,7 +11,7 @@ export class ConsumoController {
     @Param('id') id: string,
     @Query('nivel') nivel: 'ano' | 'mes' | 'dia',
     @Query('ano') ano?: string,
-    @Query('mes') mes?: string,
+    @Query('mes') mes?: string
   ) {
     return this.consumoService.calcular(id, nivel, ano ? +ano : undefined, mes ? +mes : 
 undefined);

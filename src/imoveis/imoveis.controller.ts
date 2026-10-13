@@ -43,9 +43,6 @@ export class ImoveisController {
     summary: 'Cadastrar imóvel',
     description: 'Cadastra um novo imóvel. Requer autenticação e role ADMIN.',
   })
-
-
-
   @ApiBody({
     type: CreateImovelDto,
     examples: {
@@ -58,7 +55,6 @@ export class ImoveisController {
       },
     },
   })
-
   @ApiResponse({
     status: 201,
     description: 'Imóvel cadastrado com sucesso.',
@@ -83,7 +79,6 @@ export class ImoveisController {
     summary: 'Listar imóveis',
     description: 'Retorna todos os imóveis cadastrados. Requer autenticação.',
   })
-
   @ApiResponse({
     status: 200,
     description: 'Lista de imóveis retornada com sucesso.',
@@ -113,7 +108,6 @@ export class ImoveisController {
     summary: 'Buscar imóvel por ID',
     description: 'Retorna um imóvel específico pelo ID. Requer autenticação.',
   })
-
   @ApiResponse({
     status: 200,
     description: 'Imóvel encontrado com sucesso.',
